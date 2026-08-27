@@ -5,6 +5,12 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch: {}
 
+# Явно дозволяємо запис у репозиторій - без цього git push у кінці
+# workflow падає з помилкою прав доступу (exit code 128), навіть якщо
+# в налаштуваннях репозиторію не увімкнено "Read and write permissions".
+permissions:
+  contents: write
+
 concurrency:
   group: smc-monitor
   cancel-in-progress: false

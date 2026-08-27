@@ -1,0 +1,13 @@
+# НІКОЛИ не комітити реальні ключі
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ВАЖЛИВО: notified_setups.json, signals_log.json та risk_state.json НЕ
+# ігноруються навмисно - GitHub Actions зберігає стан бота саме в цих
+# файлах між запусками (сповіщені сетапи, трекер результатів, денні ліміти).

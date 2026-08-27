@@ -1,0 +1,64 @@
+name: SMC Bot - Full Auto-Trading
+
+# ВАЖЛИВО: за замовчуванням цей workflow запускається ТІЛЬКИ вручну
+# (workflow_dispatch), розклад (schedule) закоментований навмисно.
+#
+# Це окрема, серйозніша дія ніж просто сповіщення - бот буде РЕАЛЬНО
+# відкривати угоди на вашому Binance Futures Testnet акаунті без
+# нагляду. Навіть якщо це віртуальні кошти, варто спершу протестувати
+# вручну кілька разів (кнопка "Run workflow" нижче), і тільки коли
+# переконаєтесь, що все працює як слід - розкоментувати розклад.
+#
+# Щоб увімкнути автоматичний запуск кожні 5 хв, розкоментуйте блок
+# "schedule" нижче.
+
+on:
+  # schedule:
+  #   - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: smc-autotrade
+  cancel-in-progress: false
+
+jobs:
+  autotrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run one full auto-trading cycle
+        env:
+          BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
+          BINANCE_API_SECRET: ${{ secrets.BINANCE_API_SECRET }}
+          BINANCE_TESTNET: "true"
+          AUTO_TRADE_ENABLED: "true"
+          SYMBOL: "BTC/USDT"
+          TIMEFRAME: "1h"
+          WATCHLIST: "BTC/USDT,ETH/USDT,SOL/USDT,BNB/USDT,XRP/USDT,ADA/USDT,DOGE/USDT,AVAX/USDT,LINK/USDT,LTC/USDT"
+          RISK_PER_TRADE_PCT: "0.01"
+          LEVERAGE: "3"
+          MAX_TRADES_PER_DAY: "3"
+          MAX_DAILY_LOSS_PCT: "3.0"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python run_once_autotrade.py
+
+      - name: Save updated state back to repo
+        run: |
+          git config user.name "smc-bot"
+          git config user.email "smc-bot@users.noreply.github.com"
+          git add notified_setups.json signals_log.json risk_state.json
+          git diff --staged --quiet || git commit -m "Update bot state [skip ci]"
+          git push

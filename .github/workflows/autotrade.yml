@@ -17,6 +17,12 @@ on:
   #   - cron: '*/5 * * * *'
   workflow_dispatch: {}
 
+# Явно дозволяємо запис у репозиторій - без цього git push у кінці
+# workflow падає з помилкою прав доступу (exit code 128), навіть якщо
+# в налаштуваннях репозиторію не увімкнено "Read and write permissions".
+permissions:
+  contents: write
+
 concurrency:
   group: smc-autotrade
   cancel-in-progress: false
@@ -61,4 +67,5 @@ jobs:
           git config user.email "smc-bot@users.noreply.github.com"
           git add notified_setups.json signals_log.json risk_state.json
           git diff --staged --quiet || git commit -m "Update bot state [skip ci]"
+          git pull --no-rebase --quiet || true
           git push

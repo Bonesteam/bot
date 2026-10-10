@@ -248,11 +248,11 @@
     "zone_bottom": 0.24,
     "choch_time": "2026-09-24 04:00:00",
     "signal_time": "2026-09-24T05:24:48.440146+00:00",
-    "status": "pending",
-    "entry_time": null,
-    "outcome": null,
-    "exit_time": null,
-    "r_multiple": null
+    "status": "win",
+    "entry_time": "2026-09-28 15:00:00",
+    "outcome": "win",
+    "exit_time": "2026-09-28 18:00:00",
+    "r_multiple": 2.0
   },
   {
     "symbol": "DOGE/USDT",
@@ -282,11 +282,11 @@
     "zone_bottom": 11.06,
     "choch_time": "2026-09-23 12:00:00",
     "signal_time": "2026-09-24T05:24:50.335931+00:00",
-    "status": "pending",
-    "entry_time": null,
-    "outcome": null,
-    "exit_time": null,
-    "r_multiple": null
+    "status": "loss",
+    "entry_time": "2026-09-29 07:00:00",
+    "outcome": "loss",
+    "exit_time": "2026-09-29 08:00:00",
+    "r_multiple": -1.0
   },
   {
     "symbol": "LTC/USDT",
@@ -304,5 +304,39 @@
     "outcome": "loss",
     "exit_time": "2026-09-24 02:00:00",
     "r_multiple": -1.0
+  },
+  {
+    "symbol": "BTC/USDT",
+    "direction": "LONG",
+    "entry_price": 82819.8,
+    "stop_loss": 82781.39,
+    "take_profit": 82896.62,
+    "risk_reward": 2.0,
+    "zone_top": 82819.8,
+    "zone_bottom": 82786.4,
+    "choch_time": "2026-10-10 14:00:00",
+    "signal_time": "2026-10-10T18:06:57.396349+00:00",
+    "status": "pending",
+    "entry_time": null,
+    "outcome": null,
+    "exit_time": null,
+    "r_multiple": null
+  },
+  {
+    "symbol": "LTC/USDT",
+    "direction": "LONG",
+    "entry_price": 63.78,
+    "stop_loss": 63.37,
+    "take_profit": 64.61,
+    "risk_reward": 2.0,
+    "zone_top": 63.78,
+    "zone_bottom": 63.42,
+    "choch_time": "2026-10-10 14:00:00",
+    "signal_time": "2026-10-10T18:06:59.921676+00:00",
+    "status": "pending",
+    "entry_time": null,
+    "outcome": null,
+    "exit_time": null,
+    "r_multiple": null
   }
 ]
